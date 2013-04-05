@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form_ConsultaCliente
+Partial Class FormConsultaCliente
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -53,6 +53,7 @@ Partial Class Form_ConsultaCliente
         Me.gridClientes.GridColor = System.Drawing.SystemColors.AppWorkspace
         Me.gridClientes.Location = New System.Drawing.Point(12, 230)
         Me.gridClientes.Name = "gridClientes"
+        Me.gridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.gridClientes.Size = New System.Drawing.Size(757, 437)
         Me.gridClientes.TabIndex = 0
         '
@@ -197,14 +198,14 @@ Partial Class Form_ConsultaCliente
         Me.lblNome.TabIndex = 0
         Me.lblNome.Text = "Nome"
         '
-        'Form_ConsultaCliente
+        'FormConsultaCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(781, 679)
         Me.Controls.Add(Me.consultaCliente)
         Me.Controls.Add(Me.gridClientes)
-        Me.Name = "Form_ConsultaCliente"
+        Me.Name = "FormConsultaCliente"
         Me.Text = "Consulta Cliente"
         CType(Me.gridClientes, System.ComponentModel.ISupportInitialize).EndInit()
         Me.consultaCliente.ResumeLayout(False)

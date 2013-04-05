@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Form_AddCliente
+Partial Class FormCliente
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,6 +23,7 @@ Partial Class Form_AddCliente
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Cliente = New System.Windows.Forms.GroupBox()
+        Me.txtClienteId = New System.Windows.Forms.TextBox()
         Me.mskClienteTelefone3 = New System.Windows.Forms.MaskedTextBox()
         Me.mskClienteTelefone2 = New System.Windows.Forms.MaskedTextBox()
         Me.mskClienteTelefone1 = New System.Windows.Forms.MaskedTextBox()
@@ -41,7 +42,7 @@ Partial Class Form_AddCliente
         Me.txtClienteEndereco = New System.Windows.Forms.TextBox()
         Me.txtClienteEmail = New System.Windows.Forms.TextBox()
         Me.txtClienteNome = New System.Windows.Forms.TextBox()
-        Me.btn_AdicionarCliente = New System.Windows.Forms.Button()
+        Me.btn_SalvarCliente = New System.Windows.Forms.Button()
         Me.btn_CancelarCliente = New System.Windows.Forms.Button()
         Me.txtNomeCliente = New System.Windows.Forms.TextBox()
         Me.Cliente.SuspendLayout()
@@ -49,6 +50,7 @@ Partial Class Form_AddCliente
         '
         'Cliente
         '
+        Me.Cliente.Controls.Add(Me.txtClienteId)
         Me.Cliente.Controls.Add(Me.mskClienteTelefone3)
         Me.Cliente.Controls.Add(Me.mskClienteTelefone2)
         Me.Cliente.Controls.Add(Me.mskClienteTelefone1)
@@ -73,6 +75,14 @@ Partial Class Form_AddCliente
         Me.Cliente.TabIndex = 20
         Me.Cliente.TabStop = False
         Me.Cliente.Text = "Cliente"
+        '
+        'txtClienteId
+        '
+        Me.txtClienteId.Location = New System.Drawing.Point(387, 287)
+        Me.txtClienteId.Name = "txtClienteId"
+        Me.txtClienteId.ReadOnly = True
+        Me.txtClienteId.Size = New System.Drawing.Size(100, 20)
+        Me.txtClienteId.TabIndex = 21
         '
         'mskClienteTelefone3
         '
@@ -218,14 +228,14 @@ Partial Class Form_AddCliente
         Me.txtClienteNome.Size = New System.Drawing.Size(338, 20)
         Me.txtClienteNome.TabIndex = 0
         '
-        'btn_AdicionarCliente
+        'btn_SalvarCliente
         '
-        Me.btn_AdicionarCliente.Location = New System.Drawing.Point(425, 349)
-        Me.btn_AdicionarCliente.Name = "btn_AdicionarCliente"
-        Me.btn_AdicionarCliente.Size = New System.Drawing.Size(75, 23)
-        Me.btn_AdicionarCliente.TabIndex = 9
-        Me.btn_AdicionarCliente.Text = "Adicionar"
-        Me.btn_AdicionarCliente.UseVisualStyleBackColor = True
+        Me.btn_SalvarCliente.Location = New System.Drawing.Point(425, 349)
+        Me.btn_SalvarCliente.Name = "btn_SalvarCliente"
+        Me.btn_SalvarCliente.Size = New System.Drawing.Size(75, 23)
+        Me.btn_SalvarCliente.TabIndex = 9
+        Me.btn_SalvarCliente.Text = "Salvar"
+        Me.btn_SalvarCliente.UseVisualStyleBackColor = True
         '
         'btn_CancelarCliente
         '
@@ -244,17 +254,17 @@ Partial Class Form_AddCliente
         Me.txtNomeCliente.Size = New System.Drawing.Size(338, 20)
         Me.txtNomeCliente.TabIndex = 0
         '
-        'Form_AddCliente
+        'FormCliente
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btn_CancelarCliente
         Me.ClientSize = New System.Drawing.Size(512, 386)
         Me.Controls.Add(Me.btn_CancelarCliente)
-        Me.Controls.Add(Me.btn_AdicionarCliente)
+        Me.Controls.Add(Me.btn_SalvarCliente)
         Me.Controls.Add(Me.Cliente)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
-        Me.Name = "Form_AddCliente"
+        Me.Name = "FormCliente"
         Me.Text = "Adicionar Cliente"
         Me.Cliente.ResumeLayout(False)
         Me.Cliente.PerformLayout()
@@ -275,7 +285,7 @@ Partial Class Form_AddCliente
     Friend WithEvents CpfCliente As System.Windows.Forms.Label
     Friend WithEvents RgCliente As System.Windows.Forms.Label
     Friend WithEvents nomeCliente As System.Windows.Forms.Label
-    Friend WithEvents btn_AdicionarCliente As System.Windows.Forms.Button
+    Friend WithEvents btn_SalvarCliente As System.Windows.Forms.Button
     Friend WithEvents btn_CancelarCliente As System.Windows.Forms.Button
     Friend WithEvents txtNomeCliente As System.Windows.Forms.TextBox
     Friend WithEvents mskClienteCpf As System.Windows.Forms.MaskedTextBox
@@ -283,4 +293,5 @@ Partial Class Form_AddCliente
     Friend WithEvents mskClienteTelefone2 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mskClienteTelefone1 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mskClienteCep As System.Windows.Forms.MaskedTextBox
+    Friend WithEvents txtClienteId As System.Windows.Forms.TextBox
 End Class
