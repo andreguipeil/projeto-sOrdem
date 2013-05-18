@@ -72,21 +72,22 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="auxiliares\AcessaDB.vb" />
+    <Compile Include="auxiliares\CarregaDados.vb" />
+    <Compile Include="auxiliares\ProgramaModel.vb" />
     <Compile Include="auxiliares\LimpaCampos.vb" />
-    <Compile Include="cliente\Add_ClienteDB.vb" />
+    <Compile Include="cliente\ClienteModel.vb" />
     <Compile Include="cliente\Cliente.vb" />
     <Compile Include="auxiliares\Maskaras.vb" />
-    <Compile Include="cliente\Form_ConsultaCliente.Designer.vb">
-      <DependentUpon>Form_ConsultaCliente.vb</DependentUpon>
+    <Compile Include="cliente\FormConsultaCliente.Designer.vb">
+      <DependentUpon>FormConsultaCliente.vb</DependentUpon>
     </Compile>
-    <Compile Include="cliente\Form_ConsultaCliente.vb">
+    <Compile Include="cliente\FormConsultaCliente.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="cliente\Form_AddCliente.Designer.vb">
-      <DependentUpon>Form_AddCliente.vb</DependentUpon>
+    <Compile Include="cliente\FormCliente.Designer.vb">
+      <DependentUpon>FormCliente.vb</DependentUpon>
     </Compile>
-    <Compile Include="cliente\Form_AddCliente.vb">
+    <Compile Include="cliente\FormCliente.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="cliente\ValidaCliente.vb" />
@@ -114,11 +115,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="cliente\Form_ConsultaCliente.resx">
-      <DependentUpon>Form_ConsultaCliente.vb</DependentUpon>
+    <EmbeddedResource Include="cliente\FormConsultaCliente.resx">
+      <DependentUpon>FormConsultaCliente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="cliente\Form_AddCliente.resx">
-      <DependentUpon>Form_AddCliente.vb</DependentUpon>
+    <EmbeddedResource Include="cliente\FormCliente.resx">
+      <DependentUpon>FormCliente.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.vb</DependentUpon>

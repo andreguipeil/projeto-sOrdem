@@ -9,7 +9,7 @@
     '------------------------------------------------------------------------
     Private Sub AddCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles AddCliente.Click
         
-        Form_AddCliente.ShowDialog()
+        FormCliente.ShowDialog()
 
     End Sub
 
@@ -23,7 +23,7 @@
     '-------------------------------------------------------------------------
     Private Sub ConsultaClientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ConsultaClientes.Click
 
-        Form_ConsultaCliente.ShowDialog()
+        FormConsultaCliente.ShowDialog()
 
     End Sub
 
