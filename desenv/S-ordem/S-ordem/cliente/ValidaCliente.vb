@@ -1,6 +1,6 @@
 ﻿Module ValidaCliente
 
-    Public Function validaCamposCliente(ByVal nome, ByVal rg)
+    Public Function ValidaAdd_Cliente(ByVal nome, ByVal rg) As Boolean
         Dim flag As Boolean
 
         If String.IsNullOrEmpty(nome) = True Then
@@ -13,15 +13,15 @@
             flag = True
         End If
 
-        Return flag
+        ValidaAdd_Cliente = flag
     End Function
 
-    Public Function successCliente(ByVal flag)
+    Public Function SuccessAddCliente(ByVal flag)
         If flag = True Then
             MsgBox("Registro gravado com sucesso!", MsgBoxStyle.OkOnly)
         End If
 
-        Return flag
+        SuccessAddCliente = flag
     End Function
 
 End Module

@@ -1,13 +1,7 @@
-﻿Public Class FormCliente
+﻿Public Class Form_AddCliente
 
     Dim maskaras As New Maskaras()
 
-    Public Sub FormCliente_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        If String.IsNullOrEmpty(txtClienteId.Text) Then
-            txtClienteId.Text = "-1"
-        End If
-    End Sub
 
     '   formulario
     '==========================================================
@@ -95,7 +89,7 @@
     ' botao adicionar
     '==========================================================
 
-    Private Sub btn_SalvarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_SalvarCliente.Click
+    Private Sub btn_AdicionarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_AdicionarCliente.Click
 
         ' para tirar as mascaras é necessario jogar dentro de uma variavel, pq nao sei
         '======================================================================================
@@ -104,7 +98,7 @@
         Dim clienteTelefone1 As String = maskaras.retiraMaskara(mskClienteTelefone1.Text)
         Dim clienteTelefone2 As String = maskaras.retiraMaskara(mskClienteTelefone2.Text)
         Dim clienteTelefone3 As String = maskaras.retiraMaskara(mskClienteTelefone3.Text)
-        Dim acessoModel As New clienteModel()
+        Dim AddCliente As New Add_ClienteDb()
         Dim cliente As New Cliente()
         Dim data As DateTime = DateTime.Now
         Dim dt_cadastro As String
@@ -113,9 +107,9 @@
         dt_cadastro = FormatDateTime(data, DateFormat.ShortDate)        ' tratamento da data    
         dt_cadastro = maskaras.retiraMaskaraData(dt_cadastro)           ' dt_cadastro no formato padrao do banco 
 
+
         ' objeto cliente recebe os valores
         '=======================================
-        cliente.id = CInt(txtClienteId.Text)
         cliente.nome = txtClienteNome.Text
         cliente.rg = txtClienteRg.Text
         cliente.cpf = clienteCpf
@@ -127,61 +121,22 @@
         cliente.telefone_3 = clienteTelefone3
         cliente.data = dt_cadastro
 
-
-        MsgBox(cliente.id.ToString)
-
-        If cliente.id = 0 Then
-            'verifica se os campos nome e rg foram preenchidos
-            If validaCamposCliente(txtClienteNome.Text, txtClienteRg.Text) = False Then
-                callBack = acessoModel.inserirCliente(cliente)                          ' insere
-                If callBack = True Then                                                 ' verifica se inseriu no banco
-                    successCliente(callBack)
-                End If
-            End If
-        Else
-            If validaCamposCliente(txtClienteNome.Text, txtClienteRg.Text) = False Then
-                callBack = True
-                acessoModel.alterarCliente(cliente)                                     ' altera clientes
-                If callBack = True Then                                                 ' verifica se inseriu no banco
-                    successCliente(callBack)
-                End If
+        'verifica se os campos nome e rg foram preenchidos
+        If ValidaAdd_Cliente(txtClienteNome.Text, txtClienteRg.Text) = False Then
+            callBack = True
+            AddCliente.insereCliente(cliente)                            ' insere clientes
+            If callBack = True Then                                                 ' verifica se inseriu no banco
+                SuccessAddCliente(callBack)
             End If
         End If
-        Me.Close()
-        Me.Dispose()
-
+        Close()
     End Sub
 
     ' botao cancelar
     '==========================================================
     Private Sub btn_CancelarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_CancelarCliente.Click
         Limpar(Me)
-        fecharForm(True)
-    End Sub
-
-    Public Sub carregaDados(ByVal cliente As DataSet)
-        Dim dsCliente As DataSet
-
-        dsCliente = cliente
-        Me.txtClienteId.DataBindings.Add(New Binding("text", dsCliente, "pessoas.id"))
-        Me.txtClienteNome.DataBindings.Add(New Binding("text", dsCliente, "pessoas.nome"))
-        Me.txtClienteRg.DataBindings.Add(New Binding("text", dsCliente, "pessoas.rg"))
-        Me.mskClienteCpf.DataBindings.Add(New Binding("text", dsCliente, "pessoas.cpf"))
-        Me.txtClienteEndereco.DataBindings.Add(New Binding("text", dsCliente, "pessoas.endereco"))
-        Me.mskClienteCep.DataBindings.Add(New Binding("text", dsCliente, "pessoas.cep"))
-        Me.txtClienteEmail.DataBindings.Add(New Binding("text", dsCliente, "pessoas.email"))
-        Me.mskClienteTelefone1.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_1"))
-        Me.mskClienteTelefone2.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_2"))
-        Me.mskClienteTelefone3.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_3"))
-
-
-    End Sub
-
-    Private Sub fecharForm(ByVal flag)
-        If flag = True Then
-            Me.Dispose()
-            Me.Close()
-        End If
+        Close()
     End Sub
 
     '####################

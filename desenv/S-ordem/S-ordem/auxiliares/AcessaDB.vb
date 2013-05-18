@@ -6,7 +6,7 @@ Imports System.Data.OleDb
 ' 
 ' Faz a conexao entre o programa e o banco de dados
 '==============================================================
-Public Class programaModel
+Public Class AcessaDB
     Public enderecoDB As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=D:\projeto-sOrdem\database\sordem-db.accdb"  ' Access 2007
     ' Dim enderecoDB As String = "Provider = Microsoft.jet.OleDB.4.0;Data Source = D:\dados.mdb" ' só para access 2003
     Public conexao As New OleDb.OleDbConnection(enderecoDB)

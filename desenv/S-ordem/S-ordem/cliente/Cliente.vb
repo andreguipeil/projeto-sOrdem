@@ -1,6 +1,6 @@
 ﻿
 Public Class Cliente
-    Public id As Integer
+
     Public nome As String
     Public rg As String
     Public cpf As String
@@ -12,6 +12,6 @@ Public Class Cliente
     Public telefone_3 As String
     Public data As String
     Dim maskaras As New Maskaras()
-    Dim conexao As New programaModel()
+    Dim conexao As New AcessaDB()
 
 End Class
