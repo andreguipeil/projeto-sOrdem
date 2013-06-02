@@ -8,13 +8,28 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{ED8F43EE-4EF8-43B1-B771-7751C45097AC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>WindowsApplication1.My.MyApplication</StartupObject>
-    <RootNamespace>WindowsApplication1</RootNamespace>
+    <StartupObject>sordem.My.MyApplication</StartupObject>
+    <RootNamespace>sordem</RootNamespace>
     <AssemblyName>S-ordem</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -48,16 +63,52 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\Briefcase.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="GeradorPDF">
+      <HintPath>bin\Debug\GeradorPDF.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Deployment">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Management">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Security">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -72,7 +123,45 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="auxiliares\CarregaDados.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\EstadoModel.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\FormConsultaEstado.Designer.vb">
+      <DependentUpon>FormConsultaEstado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\FormConsultaEstado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\FormEstado.Designer.vb">
+      <DependentUpon>FormEstado.vb</DependentUpon>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\FormEstado.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\ValidaEstado.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\estado\Estado.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\FormConsultaMarcas.Designer.vb">
+      <DependentUpon>FormConsultaMarcas.vb</DependentUpon>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\FormConsultaMarcas.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\Marca.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\MarcaModel.vb" />
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\FormMarca.Designer.vb">
+      <DependentUpon>FormMarca.vb</DependentUpon>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\FormMarca.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="auxiliares\cadastrosAuxiliares\marca\validaMarca.vb" />
+    <Compile Include="auxiliares\FormSerial.Designer.vb">
+      <DependentUpon>FormSerial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="auxiliares\FormSerial.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="auxiliares\ValidaLicencaModel.vb" />
+    <Compile Include="auxiliares\Criptografia.vb" />
+    <Compile Include="auxiliares\UsuarioSessao.vb" />
     <Compile Include="auxiliares\ProgramaModel.vb" />
     <Compile Include="auxiliares\LimpaCampos.vb" />
     <Compile Include="cliente\ClienteModel.vb" />
@@ -91,11 +180,52 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="cliente\ValidaCliente.vb" />
-    <Compile Include="Principal.vb">
+    <Compile Include="FormLixao.Designer.vb">
+      <DependentUpon>FormLixao.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLixao.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Principal.Designer.vb">
-      <DependentUpon>Principal.vb</DependentUpon>
+    <Compile Include="FormLogin.Designer.vb">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormLogin.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="rpt\RptOrdens.vb" />
+    <Compile Include="rpt\RptClientes.vb" />
+    <Compile Include="usuario\FormConsultaUsuario.Designer.vb">
+      <DependentUpon>FormConsultaUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="usuario\FormConsultaUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ordemDeServico\FormConsultaOrdem.Designer.vb">
+      <DependentUpon>FormConsultaOrdem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ordemDeServico\FormConsultaOrdem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ordemDeServico\FormProcurarCliente.Designer.vb">
+      <DependentUpon>FormProcurarCliente.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ordemDeServico\FormProcurarCliente.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ordemDeServico\ValidaOrdem.vb" />
+    <Compile Include="ordemDeServico\OrdemModel.vb" />
+    <Compile Include="ordemDeServico\FormOrdem.Designer.vb">
+      <DependentUpon>FormOrdem.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ordemDeServico\FormOrdem.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ordemDeServico\Ordem.vb" />
+    <Compile Include="FormPrincipal.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPrincipal.Designer.vb">
+      <DependentUpon>FormPrincipal.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -113,16 +243,68 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="usuario\usuarioModel.vb" />
+    <Compile Include="usuario\ValidaUsuario.vb" />
+    <Compile Include="usuario\Usuario.vb" />
+    <Compile Include="usuario\FormUsuario.Designer.vb">
+      <DependentUpon>FormUsuario.vb</DependentUpon>
+    </Compile>
+    <Compile Include="usuario\FormUsuario.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="_sordem_dbDataSet1.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_sordem_dbDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="_sordem_dbDataSet12.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>_sordem_dbDataSet12.xsd</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="auxiliares\cadastrosAuxiliares\estado\FormConsultaEstado.resx">
+      <DependentUpon>FormConsultaEstado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="auxiliares\cadastrosAuxiliares\estado\FormEstado.resx">
+      <DependentUpon>FormEstado.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="auxiliares\cadastrosAuxiliares\marca\FormConsultaMarcas.resx">
+      <DependentUpon>FormConsultaMarcas.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="auxiliares\cadastrosAuxiliares\marca\FormMarca.resx">
+      <DependentUpon>FormMarca.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="auxiliares\FormSerial.resx">
+      <DependentUpon>FormSerial.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="cliente\FormConsultaCliente.resx">
       <DependentUpon>FormConsultaCliente.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="cliente\FormCliente.resx">
       <DependentUpon>FormCliente.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Principal.resx">
-      <DependentUpon>Principal.vb</DependentUpon>
+    <EmbeddedResource Include="FormLixao.resx">
+      <DependentUpon>FormLixao.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLogin.resx">
+      <DependentUpon>FormLogin.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="usuario\FormConsultaUsuario.resx">
+      <DependentUpon>FormConsultaUsuario.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ordemDeServico\FormConsultaOrdem.resx">
+      <DependentUpon>FormConsultaOrdem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ordemDeServico\FormProcurarCliente.resx">
+      <DependentUpon>FormProcurarCliente.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ordemDeServico\FormOrdem.resx">
+      <DependentUpon>FormOrdem.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPrincipal.resx">
+      <DependentUpon>FormPrincipal.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
@@ -130,8 +312,12 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="usuario\FormUsuario.resx">
+      <DependentUpon>FormUsuario.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -141,23 +327,332 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="_sordem_dbDataSet1.xsc">
+      <DependentUpon>_sordem_dbDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="_sordem_dbDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_sordem_dbDataSet1.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_sordem_dbDataSet1.xss">
+      <DependentUpon>_sordem_dbDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="_sordem_dbDataSet12.xsc">
+      <DependentUpon>_sordem_dbDataSet12.xsd</DependentUpon>
+    </None>
+    <None Include="_sordem_dbDataSet12.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>_sordem_dbDataSet12.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="_sordem_dbDataSet12.xss">
+      <DependentUpon>_sordem_dbDataSet12.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\exit128.png" />
+    <None Include="Resources\Address-book.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\consulta_ordem128.png" />
+    <None Include="Resources\Arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\add_cliente128.png" />
+    <None Include="Resources\Arrow-back.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\add_ordem128.png" />
+    <None Include="Resources\Arrow-back-red.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\consulta_cliente128.png" />
+    <None Include="Resources\Arrow-red.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Bookmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Briefcase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Chat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Checkmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database-warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Database-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folder-remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Graph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heart-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heart-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lifesaver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\List.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Lock_Closed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail_reply.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail-spam.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Mail-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Music.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\No.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-arrow-back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Pencil.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-add-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-group.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-group-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-group-warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-group-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-warning-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-white-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-white-warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-white-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-x-black.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-x-white.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Photo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Piechart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Questions.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rss.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speech-Bubble.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speech-Bubble-add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Speech-Bubble-x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\World.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\World-download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\World-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Paper-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-serach.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Person-white-search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search-30x30.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Briefcase.ico" />
+    <Content Include="Resources\concerto.jpg" />
+    <Content Include="Resources\Lock_Closed.ico" />
+    <Content Include="Resources\Paper-add.ico" />
+    <Content Include="Resources\Paper-search.ico" />
+    <Content Include="Resources\Paper.ico" />
+    <Content Include="Resources\Paper.jpg" />
+    <Content Include="Resources\Person-add.ico" />
+    <Content Include="Resources\Person-serach.ico" />
+    <Content Include="Resources\Person-white-add.ico" />
+    <Content Include="Resources\Person-white-search.ico" />
+    <Content Include="Resources\Person-white.ico" />
+    <Content Include="Resources\Person.ico" />
+    <Content Include="Resources\Person.jpg" />
+    <Content Include="Resources\Search.ico" />
+    <Content Include="Resources\X.ico" />
+    <Content Include="sordem-db.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Scripting">
+      <Guid>{420B2830-E718-11CF-893D-00A0C9054228}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

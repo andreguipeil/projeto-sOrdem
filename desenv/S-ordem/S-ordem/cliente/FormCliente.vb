@@ -1,15 +1,37 @@
 ﻿Public Class FormCliente
-
     Dim maskaras As New Maskaras()
-
+    ' Public usuarioSessaoId As Integer
+    '
+    'INIT
+    '============================================================================================
     Public Sub FormCliente_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
         If String.IsNullOrEmpty(txtClienteId.Text) Then
             txtClienteId.Text = "-1"
+            txtClientePessoaId.Text = "-1"
         End If
+
+        If txtClienteId.Text = "-1" Then
+            btnDeletarCliente.Enabled = False
+            btnRelatorioCliente.Enabled = False
+
+        End If
+        If FormPrincipal.usuarioSession.getUsuarioFlagAdm = 0 Then
+            btnDeletarCliente.Enabled = False
+        End If
+
     End Sub
 
-    '   formulario
+
+    '
+    '
+    '
+    '###############################################################################################################
+    '
+    '
+    '
+
+
+    '   FORMULARIO
     '==========================================================
 
     ' RG
@@ -58,8 +80,15 @@
 
     Private Sub mskClienteTelefone1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteTelefone1.GotFocus
         Me.mskClienteTelefone1.UseSystemPasswordChar = False
-        Me.mskClienteTelefone1.Mask = "(##)####-####"
+        Me.mskClienteTelefone1.Mask = "####-####"
         Me.mskClienteTelefone1.Focus()
+    End Sub
+
+    Private Sub mskClienteDdd_1_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteDdd_1.GotFocus
+        Me.mskClienteDdd_1.UseSystemPasswordChar = False
+        Me.mskClienteDdd_1.Mask = "(##)"
+        Me.mskClienteDdd_1.Focus()
+
     End Sub
 
     ' TELEFONE 2
@@ -72,9 +101,17 @@
 
     Private Sub mskClienteTelefone2_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteTelefone2.GotFocus
         Me.mskClienteTelefone2.UseSystemPasswordChar = False
-        Me.mskClienteTelefone2.Mask = "(##)####-####"
+        Me.mskClienteTelefone2.Mask = "####-####"
         Me.mskClienteTelefone2.Focus()
     End Sub
+
+    Private Sub mskClienteDdd_2_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteDdd_2.GotFocus
+        Me.mskClienteDdd_2.UseSystemPasswordChar = False
+        Me.mskClienteDdd_2.Mask = "(##)"
+        Me.mskClienteDdd_2.Focus()
+
+    End Sub
+
 
     ' TELEFONE 3
     '-----------------------
@@ -86,15 +123,31 @@
 
     Private Sub mskClienteTelefone3_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteTelefone3.GotFocus
         Me.mskClienteTelefone3.UseSystemPasswordChar = False
-        Me.mskClienteTelefone3.Mask = "(##)####-####"
+        Me.mskClienteTelefone3.Mask = "####-####"
         Me.mskClienteTelefone3.Focus()
     End Sub
 
-    '####################
+    Private Sub mskClienteDdd_3_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles mskClienteDdd_3.GotFocus
+        Me.mskClienteDdd_3.UseSystemPasswordChar = False
+        Me.mskClienteDdd_3.Mask = "(##)"
+        Me.mskClienteDdd_3.Focus()
 
-    ' botao adicionar
+    End Sub
+
+    '
+    '
+    '
+    '###############################################################################################################
+    '
+    '
+    '
+
+    '   BOTOES
     '==========================================================
 
+
+    ' SALVAR
+    '==========================================================
     Private Sub btn_SalvarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_SalvarCliente.Click
 
         ' para tirar as mascaras é necessario jogar dentro de uma variavel, pq nao sei
@@ -104,11 +157,18 @@
         Dim clienteTelefone1 As String = maskaras.retiraMaskara(mskClienteTelefone1.Text)
         Dim clienteTelefone2 As String = maskaras.retiraMaskara(mskClienteTelefone2.Text)
         Dim clienteTelefone3 As String = maskaras.retiraMaskara(mskClienteTelefone3.Text)
+        Dim clienteDdd1 As String = maskaras.retiraMaskara(mskClienteDdd_1.Text)
+        Dim clienteDdd2 As String = maskaras.retiraMaskara(mskClienteDdd_2.Text)
+        Dim clienteDdd3 As String = maskaras.retiraMaskara(mskClienteDdd_3.Text)
         Dim acessoModel As New clienteModel()
         Dim cliente As New Cliente()
         Dim data As DateTime = DateTime.Now
         Dim dt_cadastro As String
+        Dim dt_alteracao As String
         Dim callBack As Boolean
+
+        dt_alteracao = (FormatDateTime(data, DateFormat.ShortDate))
+        dt_alteracao = maskaras.retiraMaskaraData(dt_alteracao)
 
         dt_cadastro = FormatDateTime(data, DateFormat.ShortDate)        ' tratamento da data    
         dt_cadastro = maskaras.retiraMaskaraData(dt_cadastro)           ' dt_cadastro no formato padrao do banco 
@@ -116,6 +176,7 @@
         ' objeto cliente recebe os valores
         '=======================================
         cliente.id = CInt(txtClienteId.Text)
+        cliente.pessoa_id = CInt(txtClientePessoaId.Text)
         cliente.nome = txtClienteNome.Text
         cliente.rg = txtClienteRg.Text
         cliente.cpf = clienteCpf
@@ -123,71 +184,109 @@
         cliente.cep = clienteCep
         cliente.email = txtClienteEmail.Text
         cliente.telefone_1 = clienteTelefone1
+        cliente.ddd_1 = clienteDdd1
         cliente.telefone_2 = clienteTelefone2
+        cliente.ddd_2 = clienteDdd2
         cliente.telefone_3 = clienteTelefone3
-        cliente.data = dt_cadastro
+        cliente.ddd_3 = clienteDdd3
+        cliente.dt_cadastro = dt_cadastro
+        cliente.dt_alteracao = dt_alteracao
+        cliente.usuario_id = FormPrincipal.usuarioSession.getUsuarioId
 
-
-        MsgBox(cliente.id.ToString)
-
-        If cliente.id = 0 Then
+        If cliente.id = -1 Then
             'verifica se os campos nome e rg foram preenchidos
             If validaCamposCliente(txtClienteNome.Text, txtClienteRg.Text) = False Then
                 callBack = acessoModel.inserirCliente(cliente)                          ' insere
                 If callBack = True Then                                                 ' verifica se inseriu no banco
                     successCliente(callBack)
                 End If
+                fecharForm(True)
             End If
         Else
             If validaCamposCliente(txtClienteNome.Text, txtClienteRg.Text) = False Then
-                callBack = True
-                acessoModel.alterarCliente(cliente)                                     ' altera clientes
+                callBack = acessoModel.alterarCliente(cliente)                          ' altera clientes
                 If callBack = True Then                                                 ' verifica se inseriu no banco
                     successCliente(callBack)
                 End If
+                fecharForm(True)
             End If
         End If
-        Me.Close()
-        Me.Dispose()
-
     End Sub
 
-    ' botao cancelar
+    ' CANCELAR
     '==========================================================
     Private Sub btn_CancelarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btn_CancelarCliente.Click
         Limpar(Me)
         fecharForm(True)
     End Sub
 
-    Public Sub carregaDados(ByVal cliente As DataSet)
-        Dim dsCliente As DataSet
+    ' DELETAR
+    '==========================================================
+    Private Sub btnDeletarCliente_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeletarCliente.Click
+        Dim acessoModel As New clienteModel()
+        Dim id As Integer
+        Dim resposta As Integer = 0
+        Dim flag As Boolean
 
-        dsCliente = cliente
-        Me.txtClienteId.DataBindings.Add(New Binding("text", dsCliente, "pessoas.id"))
-        Me.txtClienteNome.DataBindings.Add(New Binding("text", dsCliente, "pessoas.nome"))
-        Me.txtClienteRg.DataBindings.Add(New Binding("text", dsCliente, "pessoas.rg"))
-        Me.mskClienteCpf.DataBindings.Add(New Binding("text", dsCliente, "pessoas.cpf"))
-        Me.txtClienteEndereco.DataBindings.Add(New Binding("text", dsCliente, "pessoas.endereco"))
-        Me.mskClienteCep.DataBindings.Add(New Binding("text", dsCliente, "pessoas.cep"))
-        Me.txtClienteEmail.DataBindings.Add(New Binding("text", dsCliente, "pessoas.email"))
-        Me.mskClienteTelefone1.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_1"))
-        Me.mskClienteTelefone2.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_2"))
-        Me.mskClienteTelefone3.DataBindings.Add(New Binding("text", dsCliente, "pessoas.telefone_3"))
+        resposta = confirmaClienteExclusao(txtClienteNome.Text)
 
+        If resposta = 6 Then
+            id = CInt(Me.txtClienteId.Text)                         ' transforma o id em int
+            flag = acessoModel.excluirCliente(id)                   ' executa o delete retorna uma flag 
+            fecharForm(deleteClienteSuccess(flag))                         ' flag apresenta uma msg box e depois fecha o formulario
+        End If
+    End Sub
+
+
+    ' RELATORIO
+    '==========================================================
+    Private Sub btnRelatorioCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRelatorioCliente.Click
+
+        Dim rptCliente As New RptClientes
+
+        rptCliente.relatorioCliente(CInt(txtClienteId.Text))
 
     End Sub
 
+    '
+    '
+    '
+    '###############################################################################################################
+    '
+    '
+    '
+
+    ' FUNCOES AUXILIARES
+    '=================================================================
+
+    ' esta funcao carrega os dados do cliente no formulario 
+    '=================================================================
+    Public Sub carregaDados(ByVal cliente As Cliente)
+
+        Me.txtClienteId.Text = cliente.id.ToString()
+        Me.txtClientePessoaId.Text = cliente.pessoa_id.ToString()
+        Me.txtClienteNome.Text = cliente.nome
+        Me.txtClienteRg.Text = cliente.rg
+        Me.mskClienteCpf.Text = cliente.cpf
+        Me.mskClienteTelefone1.Text = cliente.telefone_1
+        Me.mskClienteDdd_1.Text = cliente.ddd_1
+        Me.mskClienteTelefone2.Text = cliente.telefone_2
+        Me.mskClienteDdd_2.Text = cliente.ddd_2
+        Me.mskClienteTelefone3.Text = cliente.telefone_3
+        Me.mskClienteDdd_3.Text = cliente.ddd_3
+        Me.txtClienteEmail.Text = cliente.email
+        Me.txtClienteEndereco.Text = cliente.endereco
+        Me.mskClienteCep.Text = cliente.cep
+
+    End Sub
+
+    'fecha o formulario do cliente
+    '=====================================================================
     Private Sub fecharForm(ByVal flag)
         If flag = True Then
             Me.Dispose()
             Me.Close()
         End If
     End Sub
-
-    '####################
-    '  Private Sub Form_AddCliente_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-    '      Limpar(Me)
-    '      Close()
-    ' End Sub
 
 End Class

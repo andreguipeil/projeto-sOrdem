@@ -1,36 +1,107 @@
-﻿Public Class FormConsultaCliente
+﻿Imports System.IO
+Imports System.Data
+Imports System.Data.OleDb
 
-    Private gridSql As String = "SELECT id, nome, rg, cpf, email FROM pessoas"
+Public Class FormConsultaCliente
+
+    'Public usuarioSessaoId As Integer
     Private dsPessoas As DataSet
 
+
+    ' ATUALIZA
+    '=================================================================
+    Private Sub FormConsultaCliente_Activated(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Activated
+        Me.FormConsultaCliente_Load(sender, e)
+    End Sub
+
     ' INIT
-    '-----------------------------
+    '=================================================================
     Private Sub FormConsultaCliente_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Dim acessoClienteModel As New clienteModel
+        Dim cliente As New Cliente
 
-        Dim conexao As New programaModel()
-        Dim DataReader As OleDb.OleDbDataReader
-        Dim myDataTable As New DataTable
-
-        conexao.Conectar()
-        DataReader = conexao.retornaQuery(gridSql)
-        myDataTable.Load(DataReader)
-        gridClientes.DataSource = myDataTable
-        gridClientes.ReadOnly = True
+        Limpar(Me)
+        gridClientes.DataSource = acessoClienteModel.getClientes(cliente)
 
     End Sub
-    '####################
+
+    '
+    '
+    '
+    '###############################################################################################################
+    '
+    '
+    '
+
+    ' BOTOES
+    '=================================================================
 
 
+    ' PESQUISAR
+    '=================================================================
+    Private Sub btnPesquisarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPesquisarCliente.Click
+        Dim cliente As New Cliente
+        Dim acessoModel As New clienteModel()
 
+        cliente.nome = txtClienteNome.Text
+        cliente.rg = txtClienteRg.Text
+        cliente.cpf = mskClienteCpf.Text
+        cliente.email = txtClienteEmail.Text
+        gridClientes.DataSource = acessoModel.getClientes(cliente)
+    End Sub
 
-    ' botao cancelar
-    '-----------------------------
+    ' CANCELAR
+    '=================================================================
     Private Sub cancelarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCancelarConsulta.Click
         Limpar(Me)
         Close()
     End Sub
 
-    '####################
+    ' GRID DOUBLE CLICK
+    '=================================================================
+    Private Sub gridClientes_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles gridClientes.MouseDoubleClick
+        Dim acessoClienteModel As New clienteModel()
+        Dim id As Integer
+        Dim cliente As Cliente
+
+        If gridClientes.RowCount = 1 Then
+            gridClienteVazia()
+        Else
+            If String.IsNullOrEmpty(gridClientes.CurrentRow.Cells("id").Value.ToString) Then
+                linhaClienteInvalida()
+            Else
+                id = gridClientes.CurrentRow.Cells("id").Value.ToString()
+                cliente = acessoClienteModel.getClienteById(id)
+                '--
+                Dim editarCliente As New FormCliente
+                editarCliente.carregaDados(cliente)
+                'editarCliente.usuarioSessaoId = Me.usuarioSessaoId
+                editarCliente.ShowDialog()
+            End If
+        End If
+    End Sub
+
+    Private Sub btnRelatorioClientes_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRelatorioClientes.Click
+        Dim cliente As New Cliente
+        Dim rptClientes As New RptClientes
+        cliente.nome = txtClienteNome.Text
+        cliente.rg = txtClienteRg.Text
+        cliente.cpf = mskClienteCpf.Text
+        cliente.email = txtClienteEmail.Text
+        rptClientes.relatorioClientes(cliente)
+    End Sub
+
+
+    '
+    '
+    '
+    '###############################################################################################################
+    '
+    '
+    '
+
+    ' FORMULARIO
+    '=================================================================
 
     ' campo RG
     '-----------------------------
@@ -54,35 +125,4 @@
         End If
     End Sub
 
-
-    Private Sub btnPesquisarCliente_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPesquisarCliente.Click
-        Dim cliente As New Cliente
-        Dim acessoModel As New clienteModel()
-
-        cliente.nome = txtClienteNome.Text
-        cliente.rg = txtClienteRg.Text
-        cliente.cpf = mskClienteCpf.Text
-        cliente.email = txtClienteEmail.Text
-
-        gridClientes.DataSource = acessoModel.getClientes(cliente)
-        'gridClientes.ReadOnly = True
-    End Sub
-
-
-    Private Sub gridClientes_MouseDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles gridClientes.MouseDoubleClick
-        Dim acessoModel As New clienteModel()
-        Dim id As Integer
-        Dim cliente As DataSet
-
-        id = gridClientes.CurrentRow.Cells("id").Value.ToString()
-        cliente = acessoModel.getCliente(id)
-
-
-
-        Dim editarCliente As New FormCliente
-        editarCliente.carregaDados(cliente)
-        editarCliente.ShowDialog()
-
-
-    End Sub
 End Class

@@ -126,6 +126,8 @@ Public Class RptOrdens
         Return False
     End Function
 
+
+    Private rptOrdem As New PDF()
     Public Function relatorioOrdem(ByVal ordemId As Integer) As Boolean
         Dim acessoClienteModel As New clienteModel
         Dim cliente As New Cliente
@@ -144,84 +146,176 @@ Public Class RptOrdens
 
 
         Try
-            Dim rptCliente As New PDF()
+
             Dim intNpag As Integer = 0
             Dim intAux As Integer = 0
             Dim datHoje As DateTime = DateTime.Now
 
 
-            rptCliente.Autor = "André Peil"
-            rptCliente.Titulo = "S-Ordem - Sistema de Gerenciamento de Ordens de Serviço"
-            rptCliente.AdicionarPG()
+            rptOrdem.Autor = "André Peil"
+            rptOrdem.Titulo = "S-Ordem - Sistema de Gerenciamento de Ordens de Serviço"
+            rptOrdem.AdicionarPG()
             'rptClientes.InserirIMG(intNpag, Application.StartupPath & "\imagens\celulares2.jpg", 35, 105, 69, 64, 100)
 
             'rptClientes.DesenharLinha(intNpag, 25, 52, 570, 52, 1)
-            rptCliente.DesenharTexto(intNpag, 80, 55, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
-            rptCliente.DesenharTexto(intNpag, 80, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
-            rptCliente.InserirIMG(intNpag, Application.StartupPath & "\imagens\concerto.jpg", 30, 100, 48, 48, 100)
-            rptCliente.DesenharLinha(intNpag, 25, 100, 570, 100, 1)
-            rptCliente.DesenharLinha(intNpag, 25, 102, 570, 102, 1)
+            rptOrdem.DesenharTexto(intNpag, 80, 55, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
+            rptOrdem.DesenharTexto(intNpag, 80, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
+            rptOrdem.InserirIMG(intNpag, Application.StartupPath & "\imagens\concerto.jpg", 30, 100, 48, 48, 100)
+            rptOrdem.DesenharLinha(intNpag, 25, 100, 570, 100, 1)
+            rptOrdem.DesenharLinha(intNpag, 25, 102, 570, 102, 1)
 
-            rptCliente.InserirIMG(intNpag, Application.StartupPath & "\imagens\paper.jpg", 30, 180, 48, 48, 100)
-            rptCliente.DesenharLinha(intNpag, 85, 130, 85, 180, 1)
-            rptCliente.DesenharLinha(intNpag, 90, 130, 90, 180, 1)
-            rptCliente.DesenharTexto(intNpag, 100, 135, "ORDEM DE SERVIÇO: Nr. " & ordem.id, 16)
-            rptCliente.DesenharTexto(intNpag, 100, 155, "Data de Entrada: " & ordem.dt_entrada & " - Data de Saida: " & ordem.dt_saida, 10)
-            rptCliente.DesenharLinha(intNpag, 24, 185, 570, 185, 1)
-            rptCliente.DesenharLinha(intNpag, 24, 190, 570, 190, 1)
+            rptOrdem.InserirIMG(intNpag, Application.StartupPath & "\imagens\paper.jpg", 30, 180, 48, 48, 100)
+            rptOrdem.DesenharLinha(intNpag, 85, 130, 85, 180, 1)
+            rptOrdem.DesenharLinha(intNpag, 90, 130, 90, 180, 1)
+            rptOrdem.DesenharTexto(intNpag, 100, 135, "ORDEM DE SERVIÇO: Nr. " & ordem.id, 16)
+            rptOrdem.DesenharTexto(intNpag, 100, 155, "Data de Entrada: " & ordem.dt_entrada & " - Data de Saida: " & ordem.dt_saida, 10)
+            rptOrdem.DesenharLinha(intNpag, 24, 185, 570, 185, 1)
+            rptOrdem.DesenharLinha(intNpag, 24, 190, 570, 190, 1)
 
-            rptCliente.DesenharTexto(intNpag, 65, 200, "CLIENTE", 12)
-            rptCliente.DesenharLinha(intNpag, 40, 215, 200, 215, 1)
-            rptCliente.DesenharTexto(intNpag, 90, 225, "Nome: ", 8)
-            rptCliente.DesenharTexto(intNpag, 120, 225, "" & cliente.nome, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 245, "RG: ", 8)
-            rptCliente.DesenharTexto(intNpag, 120, 245, "" & cliente.rg, 8)
+            rptOrdem.DesenharTexto(intNpag, 45, 200, "CLIENTE", 12)
+            rptOrdem.DesenharLinha(intNpag, 40, 215, 200, 215, 1)
+            rptOrdem.DesenharTexto(intNpag, 65, 225, "Nome: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 95, 225, "" & cliente.nome, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 245, "RG: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 95, 245, "" & cliente.rg, 8)
 
-            rptCliente.DesenharTexto(intNpag, 65, 260, "CONTATO", 12)
-            rptCliente.DesenharLinha(intNpag, 40, 275, 200, 275, 1)
-            rptCliente.DesenharTexto(intNpag, 90, 285, "Telefone 1: ", 8)
-            rptCliente.DesenharTexto(intNpag, 140, 285, "(" & cliente.ddd_1 & ")" & cliente.telefone_1, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 305, "Telefone 2: ", 8)
-            rptCliente.DesenharTexto(intNpag, 140, 305, "(" & cliente.ddd_2 & ")" & cliente.telefone_2, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 325, "Telefone 3: ", 8)
-            rptCliente.DesenharTexto(intNpag, 140, 325, "(" & cliente.ddd_3 & ")" & cliente.telefone_3, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 345, "Email: ", 8)
-            rptCliente.DesenharTexto(intNpag, 120, 345, "" & cliente.email, 8)
+            rptOrdem.DesenharTexto(intNpag, 45, 260, "CONTATO", 12)
+            rptOrdem.DesenharLinha(intNpag, 40, 275, 200, 275, 1)
+            rptOrdem.DesenharTexto(intNpag, 65, 285, "Telefone 1: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 285, "(" & cliente.ddd_1 & ")" & cliente.telefone_1, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 305, "Telefone 2: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 305, "(" & cliente.ddd_2 & ")" & cliente.telefone_2, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 325, "Telefone 3: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 325, "(" & cliente.ddd_3 & ")" & cliente.telefone_3, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 345, "Email: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 345, "" & cliente.email, 8)
 
-            rptCliente.DesenharTexto(intNpag, 65, 360, "ORDEM DE SERVIÇO", 12)
-            rptCliente.DesenharLinha(intNpag, 40, 375, 400, 375, 1)
-            rptCliente.DesenharLinha(intNpag, 40, 377, 400, 377, 1)
+            rptOrdem.DesenharTexto(intNpag, 300, 200, "ORDEM DE SERVIÇO", 12)
+            rptOrdem.DesenharLinha(intNpag, 295, 215, 455, 215, 1)
+            rptOrdem.DesenharLinha(intNpag, 295, 217, 455, 217, 1)
+            rptOrdem.DesenharTexto(intNpag, 315, 225, "Marca: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 225, "" & marca, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 245, "Modelo: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 245, "" & ordem.modelo, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 266, "Estado da Ordem: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 385, 266, "" & estado, 8)
 
-            rptCliente.DesenharTexto(intNpag, 90, 400, "Marca: ", 8)
-            rptCliente.DesenharTexto(intNpag, 120, 400, "" & marca, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 420, "Modelo: ", 8)
-            rptCliente.DesenharTexto(intNpag, 125, 420, "" & ordem.modelo, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 440, "Estado da Ordem: ", 8)
-            rptCliente.DesenharTexto(intNpag, 160, 440, "" & estado, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 460, "Defeito: ", 8)
-            rptCliente.DesenharTexto(intNpag, 125, 460, "" & ordem.defeito, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 480, "Laudo: ", 8)
-            rptCliente.DesenharTexto(intNpag, 120, 480, "" & ordem.laudo, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 500, "Taxa: ", 8)
-            rptCliente.DesenharTexto(intNpag, 110, 500, " R$ " & ordem.preco_concerto, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 520, "Observação: ", 8)
-            rptCliente.DesenharTexto(intNpag, 140, 520, "" & ordem.observacao, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 285, "Defeito: ", 8)
+            ordem.defeito = Replace(ordem.defeito, vbCrLf, " ")
+            If ordem.defeito.Length > 50 Then
+                validaCampoGrande(ordem.defeito, 285)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 345, 285, "" & ordem.defeito, 8)
+            End If
+            
+            rptOrdem.DesenharTexto(intNpag, 315, 305, "Laudo: ", 8)
+            ordem.laudo = Replace(ordem.laudo, vbCrLf, " ")
+            If ordem.laudo.Length > 50 Then
+                validaCampoGrande(ordem.laudo, 305)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 345, 305, "" & ordem.laudo, 8)
+            End If
 
-            rptCliente.DesenharTexto(intNpag, 65, 535, "ALTERAÇÃO", 12)
-            rptCliente.DesenharLinha(intNpag, 40, 550, 200, 550, 1)
-            rptCliente.DesenharTexto(intNpag, 90, 570, "Data de Cadastro: ", 8)
-            rptCliente.DesenharTexto(intNpag, 160, 570, "" & ordem.dt_cadastro, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 590, "Data de Alteração: ", 8)
-            rptCliente.DesenharTexto(intNpag, 160, 590, "" & ordem.dt_alteracao, 8)
-            rptCliente.DesenharTexto(intNpag, 90, 610, "Usuário: ", 8)
-            rptCliente.DesenharTexto(intNpag, 130, 610, "" & usuario.username, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 325, "Taxa: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 325, " R$ " & ordem.preco_concerto, 8)
 
-            rptCliente.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
-            rptCliente.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
-            rptCliente.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+            rptOrdem.DesenharTexto(intNpag, 315, 345, "Observação: ", 8)
+            ordem.observacao = Replace(ordem.observacao, vbCrLf, " ")
+            If ordem.observacao.Length > 50 Then
+                validaCampoGrande(ordem.observacao, 345)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 365, 345, ordem.observacao, 8)
+            End If
 
-            rptCliente.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptOrdem-" & ordem.id & ".pdf")
-            rptCliente.Dispose()
+
+
+            '
+            '=========================================================
+            '
+
+            rptOrdem.DesenharTexto(intNpag, 80, 465, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
+            rptOrdem.DesenharTexto(intNpag, 80, 485, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
+            rptOrdem.InserirIMG(intNpag, Application.StartupPath & "\imagens\concerto.jpg", 30, 510, 48, 48, 100)
+            rptOrdem.DesenharLinha(intNpag, 25, 510, 570, 510, 1)
+            rptOrdem.DesenharLinha(intNpag, 25, 512, 570, 512, 1)
+
+            rptOrdem.InserirIMG(intNpag, Application.StartupPath & "\imagens\paper.jpg", 30, 580, 48, 48, 100)
+            rptOrdem.DesenharLinha(intNpag, 85, 540, 85, 590, 1)
+            rptOrdem.DesenharLinha(intNpag, 90, 540, 90, 590, 1)
+            rptOrdem.DesenharTexto(intNpag, 100, 545, "ORDEM DE SERVIÇO: Nr. " & ordem.id, 16)
+            rptOrdem.DesenharTexto(intNpag, 100, 565, "Data de Entrada: " & ordem.dt_entrada & " - Data de Saida: " & ordem.dt_saida, 10)
+            rptOrdem.DesenharLinha(intNpag, 24, 595, 570, 595, 1)
+            rptOrdem.DesenharLinha(intNpag, 24, 600, 570, 600, 1)
+
+            rptOrdem.DesenharTexto(intNpag, 45, 610, "CLIENTE", 12)
+            rptOrdem.DesenharLinha(intNpag, 40, 625, 200, 625, 1)
+            rptOrdem.DesenharTexto(intNpag, 65, 635, "Nome: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 95, 635, "" & cliente.nome, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 655, "RG: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 95, 655, "" & cliente.rg, 8)
+
+            rptOrdem.DesenharTexto(intNpag, 45, 670, "CONTATO", 12)
+            rptOrdem.DesenharLinha(intNpag, 40, 685, 200, 685, 1)
+            rptOrdem.DesenharTexto(intNpag, 65, 695, "Telefone 1: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 695, "(" & cliente.ddd_1 & ")" & cliente.telefone_1, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 715, "Telefone 2: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 715, "(" & cliente.ddd_2 & ")" & cliente.telefone_2, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 735, "Telefone 3: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 735, "(" & cliente.ddd_3 & ")" & cliente.telefone_3, 8)
+            rptOrdem.DesenharTexto(intNpag, 65, 755, "Email: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 115, 755, "" & cliente.email, 8)
+
+            rptOrdem.DesenharTexto(intNpag, 300, 610, "ORDEM DE SERVIÇO", 12)
+            rptOrdem.DesenharLinha(intNpag, 295, 625, 455, 625, 1)
+            rptOrdem.DesenharLinha(intNpag, 295, 627, 455, 627, 1)
+
+            rptOrdem.DesenharTexto(intNpag, 315, 635, "Marca: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 635, "" & marca, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 655, "Modelo: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 655, "" & ordem.modelo, 8)
+            rptOrdem.DesenharTexto(intNpag, 315, 676, "Estado da Ordem: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 385, 676, "" & estado, 8)
+
+            rptOrdem.DesenharTexto(intNpag, 315, 695, "Defeito: ", 8)
+            If ordem.defeito.Length > 50 Then
+                validaCampoGrande(ordem.defeito, 695)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 345, 695, "" & ordem.defeito, 8)
+            End If
+
+            rptOrdem.DesenharTexto(intNpag, 315, 715, "Laudo: ", 8)
+            If ordem.laudo.Length > 50 Then
+                validaCampoGrande(ordem.laudo, 715)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 345, 715, "" & ordem.laudo, 8)
+            End If
+
+            rptOrdem.DesenharTexto(intNpag, 315, 735, "Taxa: ", 8)
+            rptOrdem.DesenharTexto(intNpag, 345, 735, " R$ " & ordem.preco_concerto, 8)
+
+            rptOrdem.DesenharTexto(intNpag, 315, 755, "Observação: ", 8)
+            If ordem.observacao.Length > 50 Then
+                validaCampoGrande(ordem.observacao, 755)
+            Else
+                rptOrdem.DesenharTexto(intNpag, 365, 755, ordem.observacao, 8)
+            End If
+
+
+            'rptCliente.DesenharTexto(intNpag, 65, 535, "ALTERAÇÃO", 12)
+            'rptCliente.DesenharLinha(intNpag, 40, 550, 200, 550, 1)
+            'rptCliente.DesenharTexto(intNpag, 90, 570, "Data de Cadastro: ", 8)
+            'rptCliente.DesenharTexto(intNpag, 160, 570, "" & ordem.dt_cadastro, 8)
+            'rptCliente.DesenharTexto(intNpag, 90, 590, "Data de Alteração: ", 8)
+            'rptCliente.DesenharTexto(intNpag, 160, 590, "" & ordem.dt_alteracao, 8)
+            'rptCliente.DesenharTexto(intNpag, 90, 610, "Usuário: ", 8)
+            'rptCliente.DesenharTexto(intNpag, 130, 610, "" & usuario.username, 8)
+
+            'rptCliente.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
+            'rptCliente.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
+            'rptCliente.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+
+            rptOrdem.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptOrdem-" & ordem.id & ".pdf")
+            rptOrdem.Dispose()
 
             System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath & "\rptOrdem-" & ordem.id & ".pdf")
             Return True
@@ -232,5 +326,41 @@ Public Class RptOrdens
         Return False
 
     End Function
+
+    Public Sub validaCampoGrande(ByVal campo As String, ByVal l As Integer)
+
+        Dim tam As Integer
+        Dim i As Integer
+        Dim j As Integer
+        Dim aux As String = ""
+        Dim linha As Integer = l
+        tam = Int(campo.Length / 50)
+        tam = tam
+
+        Dim obsSplit As String() = Split(campo, " ")
+        Dim temp As Integer
+        i = 0
+        j = 0
+        While i <= tam
+            While aux.Length < 50
+                temp = aux.Length + obsSplit(j).Length()
+                If (temp > 50) Then
+                    Exit While
+                End If
+                If ((obsSplit.Length - 1) = j) Then
+                    aux = aux & obsSplit(j) & " "
+                    Exit While
+                End If
+                aux = aux & obsSplit(j) & " "
+                j = j + 1
+                temp = 0
+            End While
+            rptOrdem.DesenharTexto(0, 365, linha, aux, 8)
+            linha = linha + 10
+            aux = ""
+            i = i + 1
+        End While
+
+    End Sub
 
 End Class
