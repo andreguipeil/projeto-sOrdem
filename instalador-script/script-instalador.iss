@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "S-Ordem"
-#define MyAppVersion "2.6"
+#define MyAppVersion "3.1"
 #define MyAppPublisher "Peil Software"
 #define MyAppURL "andreguipeil@gmail.com"
 #define MyAppExeName "S-ordem.exe"
@@ -23,7 +23,7 @@ DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 InfoBeforeFile=D:\projeto-sOrdem\desenv\S-ordem\S-ordem\bin\Release\creditos.txt
 OutputDir=D:\projeto-sOrdem\final
-OutputBaseFilename=s-ordem_install-2.6
+OutputBaseFilename=s-ordem_install-3.1
 Compression=lzma
 SolidCompression=yes
 

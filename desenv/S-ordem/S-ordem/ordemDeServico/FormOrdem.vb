@@ -154,8 +154,10 @@
         Else
             aux = mskDtSaida.Text
         End If
-        If validaData(aux) = False Then
-            valida = False
+        If valida = True Then
+            If validaData(aux) = False Then
+                valida = False
+            End If
         End If
 
         callBack = False

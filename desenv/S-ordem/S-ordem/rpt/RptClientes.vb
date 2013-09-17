@@ -17,6 +17,8 @@ Public Class RptClientes
             Dim intAux As Integer = 0
             Dim datHoje As DateTime = DateTime.Now
             Dim cont As Integer = 0
+            Dim maskara As New Maskaras
+            Dim flagCabecalho As Boolean = False
 
             dr = acessoClienteModel.getClientesRpt(cliente)
 
@@ -27,8 +29,6 @@ Public Class RptClientes
             rptClientes.DesenharTexto(intNpag, 80, 55, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
             rptClientes.DesenharTexto(intNpag, 80, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
             rptClientes.InserirIMG(intNpag, Application.StartupPath & "\imagens\concerto.jpg", 30, 100, 48, 48, 100)
-
-
 
             rptClientes.DesenharLinha(intNpag, 25, 100, 570, 100, 1)
             rptClientes.DesenharLinha(intNpag, 25, 102, 570, 102, 1)
@@ -51,6 +51,13 @@ Public Class RptClientes
             rptClientes.DesenharTexto(intNpag, 525, 215, "USUARIO", 10)
             rptClientes.DesenharLinha(intNpag, 20, 230, 570, 230, 1)
 
+            If (flagCabecalho = False) Then
+                rptClientes.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
+                rptClientes.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
+                rptClientes.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+                flagCabecalho = True
+            End If
+
             If dr.HasRows Then
                 intAux = 240
                 While dr.Read
@@ -71,16 +78,20 @@ Public Class RptClientes
                     If intAux > 750 Then
                         rptClientes.AdicionarPG()
                         intNpag = intNpag + 1
+                        flagCabecalho = False
 
-                        rptClientes.DesenharLinha(intNpag, 25, 45, 570, 45, 1)
-                        rptClientes.DesenharTexto(intNpag, 200, 55, "Assitência Técnica em Celulares & Acessórios ", 18)
-                        rptClientes.DesenharTexto(intNpag, 305, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
+                        rptClientes.DesenharTexto(intNpag, 80, 55, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
+                        rptClientes.DesenharTexto(intNpag, 80, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
+                        rptClientes.InserirIMG(intNpag, Application.StartupPath & "\imagens\concerto.jpg", 30, 100, 48, 48, 100)
+
                         rptClientes.DesenharLinha(intNpag, 25, 100, 570, 100, 1)
+                        rptClientes.DesenharLinha(intNpag, 25, 102, 570, 102, 1)
 
-                        rptClientes.DesenharLinha(intNpag, 25, 130, 25, 180, 1)
-                        rptClientes.DesenharLinha(intNpag, 30, 130, 30, 180, 1)
-                        rptClientes.DesenharTexto(intNpag, 40, 135, "RELATÓRIO DE CLIENTES", 16)
-                        rptClientes.DesenharTexto(intNpag, 40, 155, "Data: " & Format(datHoje, "dd-MM-yyyy"), 10)
+                        rptClientes.InserirIMG(intNpag, Application.StartupPath & "\imagens\person.jpg", 30, 180, 48, 48, 100)
+                        rptClientes.DesenharLinha(intNpag, 85, 130, 85, 180, 1)
+                        rptClientes.DesenharLinha(intNpag, 90, 130, 90, 180, 1)
+                        rptClientes.DesenharTexto(intNpag, 100, 135, "RELATÓRIO DE CLIENTES", 16)
+                        rptClientes.DesenharTexto(intNpag, 100, 155, "Data: " & Format(datHoje, "dd-MM-yyyy"), 10)
                         rptClientes.DesenharLinha(intNpag, 24, 185, 570, 185, 1)
                         rptClientes.DesenharLinha(intNpag, 24, 190, 570, 190, 1)
 
@@ -94,11 +105,14 @@ Public Class RptClientes
                         rptClientes.DesenharTexto(intNpag, 525, 200, "USUARIO", 10)
                         rptClientes.DesenharLinha(intNpag, 25, 215, 570, 215, 1)
                         intAux = 220
-                    End If
 
-                    rptClientes.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
-                    rptClientes.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
-                    rptClientes.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 7)
+                        If (flagCabecalho = False) Then
+                            rptClientes.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
+                            rptClientes.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
+                            rptClientes.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+                            flagCabecalho = True
+                        End If
+                    End If
                 End While
 
                 rptClientes.DesenharLinha(intNpag, 25, intAux, 570, intAux, 1)
@@ -107,11 +121,13 @@ Public Class RptClientes
                 rptClientes.DesenharTexto(intNpag, 140, intAux + 12, cont, 10)
             End If
             acessoClienteModel.Desconectar()
+            Dim tempData As String
+            tempData = maskara.retiraMaskaraData(datHoje)
 
-            rptClientes.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptClientes.pdf")
+            rptClientes.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptClientes" & tempData & ".pdf")
             rptClientes.Dispose()
 
-            System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath & "\rptClientes.pdf")
+            System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath & "\rptClientes" & tempData & ".pdf")
             Return True
         Catch ex As Exception ' se gera erro pega  descricao do erro na variavel ex
             MsgBox("Erro ao abrir PDF : " & ex.ToString()) ' mostra na tela

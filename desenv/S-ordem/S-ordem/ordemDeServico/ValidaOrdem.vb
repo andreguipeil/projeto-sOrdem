@@ -105,4 +105,11 @@
         Return dataBonitinha
     End Function
 
+    Public Function objetoVazio() As String
+        Dim temp
+        temp = " "
+        Return temp
+    End Function
+
+
 End Module

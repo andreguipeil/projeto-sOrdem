@@ -14,7 +14,8 @@ Public Class RptOrdens
             Dim intAux As Integer = 0
             Dim datHoje As DateTime = DateTime.Now
             Dim cont As Integer = 0
-
+            Dim maskara As New Maskaras
+            Dim flagCabecalho As Boolean = False
 
             temp = acessoClienteModel.getClienteById(ordem.cliente_id).nome
 
@@ -50,6 +51,12 @@ Public Class RptOrdens
             rptOrdens.DesenharTexto(intNpag, 525, 215, "USUARIO", 10)
             rptOrdens.DesenharLinha(intNpag, 20, 230, 570, 230, 1)
 
+            If (flagCabecalho = False) Then
+                rptOrdens.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
+                rptOrdens.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
+                rptOrdens.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+                flagCabecalho = True
+            End If
 
             If dr.HasRows Then
                 intAux = 240
@@ -68,9 +75,11 @@ Public Class RptOrdens
                     rptOrdens.DesenharTexto(intNpag, 525, intAux, dr.Item("usuario"), 10)
                     intAux = intAux + 20
                     cont = cont + 1
+
                     If intAux > 750 Then
                         rptOrdens.AdicionarPG()
                         intNpag = intNpag + 1
+                        flagCabecalho = False
 
                         rptOrdens.DesenharTexto(intNpag, 80, 55, "BOZÓ Assitência Técnica em Celulares & Acessórios ", 18)
                         rptOrdens.DesenharTexto(intNpag, 80, 75, "Telefone: 3305-0975 - Contato: facebook.com/bozo.celulares", 10)
@@ -86,7 +95,7 @@ Public Class RptOrdens
                         rptOrdens.DesenharLinha(intNpag, 24, 185, 570, 185, 1)
                         rptOrdens.DesenharLinha(intNpag, 24, 190, 570, 190, 1)
 
-                        rptOrdens.DesenharTexto(intNpag, 25, 215, "NR.", 10)
+                        rptOrdens.DesenharTexto(intNpag, 20, 215, "NR.", 10)
                         rptOrdens.DesenharTexto(intNpag, 50, 215, "CLIENTE", 10)
                         rptOrdens.DesenharTexto(intNpag, 160, 215, "ESTADO", 10)
                         rptOrdens.DesenharTexto(intNpag, 250, 215, "DT. ENT.", 10)
@@ -97,12 +106,16 @@ Public Class RptOrdens
                         rptOrdens.DesenharTexto(intNpag, 525, 215, "USUARIO", 10)
                         rptOrdens.DesenharLinha(intNpag, 20, 230, 570, 230, 1)
 
-                        intAux = 220
-                    End If
 
-                    rptOrdens.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
-                    rptOrdens.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
-                    rptOrdens.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+                        If (flagCabecalho = False) Then
+                            rptOrdens.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
+                            rptOrdens.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
+                            rptOrdens.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
+                            flagCabecalho = True
+                        End If
+
+                        intAux = 240
+                    End If
                 End While
 
                 rptOrdens.DesenharLinha(intNpag, 20, intAux, 570, intAux, 1)
@@ -111,12 +124,12 @@ Public Class RptOrdens
                 rptOrdens.DesenharTexto(intNpag, 90, intAux + 12, cont, 8)
             End If
             acessoClienteModel.Desconectar()
+            Dim tempData As String
+            tempData = maskara.retiraMaskaraData(datHoje)
 
-
-            rptOrdens.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptOrdens.pdf")
+            rptOrdens.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptOrdens" & tempData & ".pdf")
             rptOrdens.Dispose()
-
-            System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath & "\rptOrdens.pdf")
+            System.Diagnostics.Process.Start(System.Windows.Forms.Application.StartupPath & "\rptOrdens" & tempData & ".pdf")
 
             Return True
         Catch ex As Exception ' se gera erro pega  descricao do erro na variavel ex
@@ -150,6 +163,14 @@ Public Class RptOrdens
             Dim intNpag As Integer = 0
             Dim intAux As Integer = 0
             Dim datHoje As DateTime = DateTime.Now
+
+            If String.IsNullOrEmpty(ordem.laudo) = True Then
+                ordem.laudo = objetoVazio()
+            End If
+
+            If String.IsNullOrEmpty(ordem.observacao) = True Then
+                ordem.observacao = objetoVazio()
+            End If
 
 
             rptOrdem.Autor = "André Peil"
@@ -207,13 +228,13 @@ Public Class RptOrdens
             Else
                 rptOrdem.DesenharTexto(intNpag, 345, 285, "" & ordem.defeito, 8)
             End If
-            
+
             rptOrdem.DesenharTexto(intNpag, 315, 305, "Laudo: ", 8)
             ordem.laudo = Replace(ordem.laudo, vbCrLf, " ")
             If ordem.laudo.Length > 50 Then
                 validaCampoGrande(ordem.laudo, 305)
             Else
-                rptOrdem.DesenharTexto(intNpag, 345, 305, "" & ordem.laudo, 8)
+                rptOrdem.DesenharTexto(intNpag, 345, 305, ordem.laudo & " ", 8)
             End If
 
             rptOrdem.DesenharTexto(intNpag, 315, 325, "Taxa: ", 8)
@@ -224,7 +245,7 @@ Public Class RptOrdens
             If ordem.observacao.Length > 50 Then
                 validaCampoGrande(ordem.observacao, 345)
             Else
-                rptOrdem.DesenharTexto(intNpag, 365, 345, ordem.observacao, 8)
+                rptOrdem.DesenharTexto(intNpag, 365, 345, "" & ordem.observacao, 8)
             End If
 
 
@@ -300,20 +321,6 @@ Public Class RptOrdens
                 rptOrdem.DesenharTexto(intNpag, 365, 755, ordem.observacao, 8)
             End If
 
-
-            'rptCliente.DesenharTexto(intNpag, 65, 535, "ALTERAÇÃO", 12)
-            'rptCliente.DesenharLinha(intNpag, 40, 550, 200, 550, 1)
-            'rptCliente.DesenharTexto(intNpag, 90, 570, "Data de Cadastro: ", 8)
-            'rptCliente.DesenharTexto(intNpag, 160, 570, "" & ordem.dt_cadastro, 8)
-            'rptCliente.DesenharTexto(intNpag, 90, 590, "Data de Alteração: ", 8)
-            'rptCliente.DesenharTexto(intNpag, 160, 590, "" & ordem.dt_alteracao, 8)
-            'rptCliente.DesenharTexto(intNpag, 90, 610, "Usuário: ", 8)
-            'rptCliente.DesenharTexto(intNpag, 130, 610, "" & usuario.username, 8)
-
-            'rptCliente.DesenharTexto(intNpag, 550, 780, intNpag + 1, 8)
-            'rptCliente.DesenharLinha(intNpag, 420, 795, 570, 795, 1)
-            'rptCliente.DesenharTexto(intNpag, 430, 800, "* Criado por Peil , contato: andreguipeil@gmail.com", 6)
-
             rptOrdem.GerarArquivo(System.Windows.Forms.Application.StartupPath & "\rptOrdem-" & ordem.id & ".pdf")
             rptOrdem.Dispose()
 
@@ -355,12 +362,13 @@ Public Class RptOrdens
                 j = j + 1
                 temp = 0
             End While
-            rptOrdem.DesenharTexto(0, 365, linha, aux, 8)
+            rptOrdem.DesenharTexto(0, 365, linha, "" & aux, 8)
             linha = linha + 10
             aux = ""
             i = i + 1
         End While
 
     End Sub
+
 
 End Class

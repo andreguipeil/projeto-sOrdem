@@ -34,6 +34,8 @@
             aux = Replace(aux, " ", "")
         End If
 
+
+
         retiraMaskara = aux
     End Function
 
@@ -41,7 +43,8 @@
         Dim aux As String = data
 
         aux = Replace(aux, "/", "-")
-
+        aux = Replace(aux, ":", "-")
+        
         retiraMaskaraData = aux
     End Function
 
